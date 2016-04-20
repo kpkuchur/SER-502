@@ -1,0 +1,213 @@
+// Generated from GKV.g4 by ANTLR 4.4
+
+  //package edu.asu.msse.gkv;
+
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+
+/**
+ * This interface defines a complete listener for a parse tree produced by
+ * {@link GKVParser}.
+ */
+public interface GKVListener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(@NotNull GKVParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(@NotNull GKVParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#assignmentStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignmentStatement(@NotNull GKVParser.AssignmentStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#assignmentStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignmentStatement(@NotNull GKVParser.AssignmentStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#compoundStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompoundStatement(@NotNull GKVParser.CompoundStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#compoundStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompoundStatement(@NotNull GKVParser.CompoundStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#display}.
+	 * @param ctx the parse tree
+	 */
+	void enterDisplay(@NotNull GKVParser.DisplayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#display}.
+	 * @param ctx the parse tree
+	 */
+	void exitDisplay(@NotNull GKVParser.DisplayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#simpleExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleExpression(@NotNull GKVParser.SimpleExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#simpleExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleExpression(@NotNull GKVParser.SimpleExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void enterProgram(@NotNull GKVParser.ProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void exitProgram(@NotNull GKVParser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatement(@NotNull GKVParser.IfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatement(@NotNull GKVParser.IfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(@NotNull GKVParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(@NotNull GKVParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#idList}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdList(@NotNull GKVParser.IdListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#idList}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdList(@NotNull GKVParser.IdListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelation(@NotNull GKVParser.RelationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelation(@NotNull GKVParser.RelationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#declarationStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclarationStatement(@NotNull GKVParser.DeclarationStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#declarationStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclarationStatement(@NotNull GKVParser.DeclarationStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(@NotNull GKVParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(@NotNull GKVParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#sequenceOfStatements}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequenceOfStatements(@NotNull GKVParser.SequenceOfStatementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#sequenceOfStatements}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequenceOfStatements(@NotNull GKVParser.SequenceOfStatementsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#simpleStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleStatement(@NotNull GKVParser.SimpleStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#simpleStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleStatement(@NotNull GKVParser.SimpleStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop(@NotNull GKVParser.LoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop(@NotNull GKVParser.LoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(@NotNull GKVParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(@NotNull GKVParser.FunctionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(@NotNull GKVParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(@NotNull GKVParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerm(@NotNull GKVParser.TermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerm(@NotNull GKVParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(@NotNull GKVParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(@NotNull GKVParser.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GKVParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameters(@NotNull GKVParser.ParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GKVParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameters(@NotNull GKVParser.ParametersContext ctx);
+}
