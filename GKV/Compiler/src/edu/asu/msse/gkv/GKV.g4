@@ -67,8 +67,7 @@ condition
 
 expression
 	:	relation
-	(	'and' relation 
-	| 	'or' relation
+	(	RELATIONOP relation 
 	)*
 	;
 
@@ -142,6 +141,9 @@ fragment NUMBER
 	:	('0'..'9')
 	;
 
+RELATIONOP
+	: ('and' | 'or');
+	 
 BOOLEAN
 	:	('true' | 'false')
 	;

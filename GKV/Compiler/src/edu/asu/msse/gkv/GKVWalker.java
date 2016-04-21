@@ -34,7 +34,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class GKVWalker extends GKVBaseListener {
-	
+
 	/*
 	 * Using StringBuilder instead of StringBuffer because its fast but
 	 * not thread safe. Thread Safety is not a concern in our program
@@ -52,7 +52,12 @@ public class GKVWalker extends GKVBaseListener {
 	private final String SCOPEEND = "SCOPEEND";
 	private final String RET = "RET";
 	private final String SET = "SET";
-	
+	private final String PUSH = "PUSH";
+	private final String MULT = "MULT";
+	private final String DIV = "DIV";
+	private final String ADD = "ADD";
+	private final String SUB = "SUB";
+
 	/**
 	 * Constructor for the walker.
 	 */
@@ -61,14 +66,14 @@ public class GKVWalker extends GKVBaseListener {
 		this.typeDictionary = new TypeDictionary();
 		this.typeMap = this.typeDictionary.getTypeMap();
 	}
-		
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterProgram(GKVParser.ProgramContext ctx) { }
-	
+
 	/**
 	 *	Keep building the StringBuilder. Before exiting write the contents
 	 *  of the StringBuffer to a file.
@@ -90,7 +95,7 @@ public class GKVWalker extends GKVBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterSequenceOfStatements(GKVParser.SequenceOfStatementsContext ctx) { 
-		
+
 	}
 	/**
 	 * {@inheritDoc}
@@ -122,8 +127,8 @@ public class GKVWalker extends GKVBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCompoundStatement(GKVParser.CompoundStatementContext ctx) { }
-	
-	
+
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -189,7 +194,15 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(GKVParser.ExpressionContext ctx) { }
+	@Override public void exitExpression(GKVParser.ExpressionContext ctx) {
+		if (ctx.RELATIONOP(0) != null) {
+			if (ctx.RELATIONOP(0).getText().equals("and")) {
+				stringBuilder.append("LOGAND" + NEWLINE);
+			} else if (ctx.RELATIONOP(0).getText().equals("or")) {
+				stringBuilder.append("LOGOR" + NEWLINE);
+			}
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -201,7 +214,9 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelation(GKVParser.RelationContext ctx) { }
+	@Override public void exitRelation(GKVParser.RelationContext ctx) {
+		
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -213,7 +228,15 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleExpression(GKVParser.SimpleExpressionContext ctx) { }
+	@Override public void exitSimpleExpression(GKVParser.SimpleExpressionContext ctx) {
+		if (ctx.ADDING_OPERATOR(0) != null) {
+			if (ctx.ADDING_OPERATOR(0).getText().equals("+")) {
+				stringBuilder.append(ADD + NEWLINE);
+			} else if (ctx.ADDING_OPERATOR(0).getText().equals("-")) {
+				stringBuilder.append(SUB + NEWLINE);
+			}
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -225,7 +248,15 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(GKVParser.TermContext ctx) { }
+	@Override public void exitTerm(GKVParser.TermContext ctx) {
+		if (ctx.MULTIPLYING_OPERATOR(0) != null) {
+			if (ctx.MULTIPLYING_OPERATOR(0).getText().equals("*")) {
+				stringBuilder.append(MULT + NEWLINE);
+			} else if (ctx.MULTIPLYING_OPERATOR(0).getText().equals("/")) {
+				stringBuilder.append(DIV + NEWLINE);
+			}
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -237,7 +268,19 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(GKVParser.FactorContext ctx) { }
+	@Override public void exitFactor(GKVParser.FactorContext ctx) { 		
+		if(ctx.INTEGER_LITERAL() != null) {
+			stringBuilder.append(PUSH + WHITESPACE);
+			stringBuilder.append(ctx.INTEGER_LITERAL().getText() + NEWLINE);
+		} else if (ctx.DECIMAL_LITERAL() != null) {
+			stringBuilder.append(PUSH + WHITESPACE);
+			stringBuilder.append(ctx.DECIMAL_LITERAL().getText() + NEWLINE);
+		} else if (ctx.IDENTIFIER() != null) {
+			stringBuilder.append(PUSH + WHITESPACE);
+			stringBuilder.append(ctx.IDENTIFIER().getText() + NEWLINE);
+		}
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -246,9 +289,9 @@ public class GKVWalker extends GKVBaseListener {
 	@Override public void enterDeclarationStatement(GKVParser.DeclarationStatementContext ctx) { 
 
 		String datatype = this.typeMap.get(ctx.DATATYPE().getText());
-		
+
 		int variableCount = ctx.IDENTIFIER().size();
-		
+
 		for (int i = 0 ; i < variableCount; i++) {
 			stringBuilder.append(datatype + WHITESPACE);
 			stringBuilder.append(ctx.IDENTIFIER(i).getText().toUpperCase() + NEWLINE);
@@ -266,19 +309,16 @@ public class GKVWalker extends GKVBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterFunctionCall(GKVParser.FunctionCallContext ctx) {
-		
-		
-		
-		
+
 	}
-	
+
 	@Override public void exitFunctionCall(GKVParser.FunctionCallContext ctx) { 
-		
+
 	}
-	
+
 	@Override public void enterIdList(GKVParser.IdListContext ctx) { 
 		int parameterCount = ctx.IDENTIFIER().size();
-		
+
 		if (parameterCount == 1) {
 			stringBuilder.append(this.typeMap.get(ctx.DATATYPE(0).getText()) + WHITESPACE);
 			stringBuilder.append(ctx.IDENTIFIER(0).getText().toUpperCase() + NEWLINE);
@@ -293,13 +333,13 @@ public class GKVWalker extends GKVBaseListener {
 	}
 
 	@Override public void exitIdList(GKVParser.IdListContext ctx) { }
-	
+
 	@Override public void enterParameters(GKVParser.ParametersContext ctx) { 
-		
+
 	}
 
 	@Override public void exitParameters(GKVParser.ParametersContext ctx) { }
-	
+
 	@Override public void enterFunction(GKVParser.FunctionContext ctx) { 
 		stringBuilder.append("FUNCSTART" + WHITESPACE);
 		stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + WHITESPACE);
@@ -318,7 +358,7 @@ public class GKVWalker extends GKVBaseListener {
 		stringBuilder.append(SCOPEEND + NEWLINE);
 		stringBuilder.append(FUNCEND + NEWLINE);
 	}
-	
+
 	@Override public void enterReturnStatement(GKVParser.ReturnStatementContext ctx) { 
 		stringBuilder.append(RET + WHITESPACE);
 		// gkvnote: this is not the neat way of doing
@@ -348,7 +388,7 @@ public class GKVWalker extends GKVBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	
+
 	/**
 	 * {@inheritDoc}
 	 *
