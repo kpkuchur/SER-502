@@ -220,7 +220,7 @@ COMPK_KEYWORDS
 	;
 	
 IDENTIFIER
-	:	
+	:
 	(	'a'..'z'
 	| 	'A'..'Z'
 	)+
