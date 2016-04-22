@@ -138,13 +138,19 @@ public class GKVWalker extends GKVBaseListener {
 		stringBuilder.append("IFEND" + NEWLINE);
 	}
 	
-	@Override public void enterElseStatement(GKVParser.ElseStatementContext ctx) { }
+	@Override public void enterElseStatement(GKVParser.ElseStatementContext ctx) { 
+		stringBuilder.append("ELSESTART" + NEWLINE);
+		stringBuilder.append(SCOPESTART + NEWLINE);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElseStatement(GKVParser.ElseStatementContext ctx) { }
+	@Override public void exitElseStatement(GKVParser.ElseStatementContext ctx) {
+		stringBuilder.append(SCOPEEND + NEWLINE);
+		stringBuilder.append("ELSEEND" + NEWLINE);
+	}
 	
 	@Override 
 	public void enterLoop(GKVParser.LoopContext ctx) { }
