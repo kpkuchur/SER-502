@@ -109,20 +109,42 @@ public class GKVWalker extends GKVBaseListener {
 	@Override
 	public void enterAssignmentStatement(GKVParser.AssignmentStatementContext ctx) { 
 		/* Evaluate the expression and get the result 
-		 * The do the below with result */
+		   The do the below with result */
 	}
+	
+	@Override public void enterIfelseStatement(GKVParser.IfelseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfelseStatement(GKVParser.IfelseStatementContext ctx) { }
 	
 	@Override
 	public void exitAssignmentStatement(GKVParser.AssignmentStatementContext ctx) {
 		stringBuilder.append(SET + WHITESPACE);
 		stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
 	}
-	
+
 	@Override 
-	public void enterIfStatement(GKVParser.IfStatementContext ctx) { }
+	public void enterIfStatement(GKVParser.IfStatementContext ctx) { 
+	}
 	
+
 	@Override
-	public void exitIfStatement(GKVParser.IfStatementContext ctx) { }
+	public void exitIfStatement(GKVParser.IfStatementContext ctx) { 
+		stringBuilder.append(SCOPEEND + NEWLINE);
+		stringBuilder.append("JMP ELSEEND" + NEWLINE);
+		stringBuilder.append("IFEND" + NEWLINE);
+	}
+	
+	@Override public void enterElseStatement(GKVParser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseStatement(GKVParser.ElseStatementContext ctx) { }
 	
 	@Override 
 	public void enterLoop(GKVParser.LoopContext ctx) { }
@@ -131,10 +153,15 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitLoop(GKVParser.LoopContext ctx) { }
 	
 	@Override 
-	public void enterCondition(GKVParser.ConditionContext ctx) { }
+	public void enterCondition(GKVParser.ConditionContext ctx) { 
+	}
 	
 	@Override 
-	public void exitCondition(GKVParser.ConditionContext ctx) { }
+	public void exitCondition(GKVParser.ConditionContext ctx) { 
+		stringBuilder.append("JMPIFFALSE" + WHITESPACE + "IFEND" + NEWLINE);
+		stringBuilder.append("IFSTART" + NEWLINE);
+		stringBuilder.append(SCOPESTART + NEWLINE);
+	}
 	
 	@Override
 	public void enterExpression(GKVParser.ExpressionContext ctx) { }

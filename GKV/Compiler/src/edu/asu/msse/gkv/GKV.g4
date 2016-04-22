@@ -5,11 +5,11 @@ options {
 }
 
 @parser:: header {
-  package edu.asu.msse.gkv;
+//  package edu.asu.msse.gkv;
 }
 
 @lexer::header {
-  package edu.asu.msse.gkv;
+//  package edu.asu.msse.gkv;
 } 
 
 program 
@@ -46,21 +46,25 @@ assignmentStatement
 	: IDENTIFIER ASSIGNMENT_SYMBOL expression
 	;
 
+ifelseStatement: ifStatement (elseStatement)?;
+
 ifStatement
 	:	CK_IF condition CK_THEN O_BRACE
 			sequenceOfStatements 
 		C_BRACE 
-	(	CK_ELSE O_BRACE 
+	; 
+
+elseStatement
+	:	CK_ELSE O_BRACE 
 			sequenceOfStatements 
 		C_BRACE
-	)?
-	; 
+	;
 
 loop
 	:	'while' condition O_BRACE  
 			sequenceOfStatements 
 		C_BRACE;
-      
+
 condition
 	:	expression
 	;
@@ -116,7 +120,7 @@ function
           	returnStatement
        	C_BRACE
     ;
-    
+
 returnStatement: FK_RETURN expression ';';
 
 idList: DATATYPE IDENTIFIER (COMMA DATATYPE IDENTIFIER)*;
