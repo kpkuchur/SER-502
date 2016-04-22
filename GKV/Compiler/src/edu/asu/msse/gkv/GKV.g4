@@ -37,7 +37,7 @@ simpleStatement
 
 compoundStatement
 	: 
-	(	ifStatement 
+	(	ifelseStatement 
 	| 	loop
 	)
 	;
