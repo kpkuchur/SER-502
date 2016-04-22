@@ -135,10 +135,11 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitIfStatement(GKVParser.IfStatementContext ctx) { 
 		stringBuilder.append(SCOPEEND + NEWLINE);
 		stringBuilder.append("JMP ELSEEND" + NEWLINE);
-		stringBuilder.append("IFEND" + NEWLINE);
+		stringBuilder.append("END" + NEWLINE);
 	}
 	
 	@Override public void enterElseStatement(GKVParser.ElseStatementContext ctx) { 
+		stringBuilder.append("LABEL: ");
 		stringBuilder.append("ELSESTART" + NEWLINE);
 		stringBuilder.append(SCOPESTART + NEWLINE);
 	}
@@ -153,10 +154,17 @@ public class GKVWalker extends GKVBaseListener {
 	}
 	
 	@Override 
-	public void enterLoop(GKVParser.LoopContext ctx) { }
+	public void enterLoop(GKVParser.LoopContext ctx) { 
+		stringBuilder.append("LOOPHEAD : ");
+	}
 	
 	@Override
-	public void exitLoop(GKVParser.LoopContext ctx) { }
+	public void exitLoop(GKVParser.LoopContext ctx) { 
+		stringBuilder.append(SCOPEEND + NEWLINE);
+		stringBuilder.append("END" + NEWLINE);
+		stringBuilder.append("JMP LOOPHEAD" + NEWLINE);
+		stringBuilder.append("LABEL : ");
+	}
 	
 	@Override 
 	public void enterCondition(GKVParser.ConditionContext ctx) { 
@@ -164,8 +172,8 @@ public class GKVWalker extends GKVBaseListener {
 	
 	@Override 
 	public void exitCondition(GKVParser.ConditionContext ctx) { 
-		stringBuilder.append("JMPIFFALSE" + WHITESPACE + "IFEND" + NEWLINE);
-		stringBuilder.append("IFSTART" + NEWLINE);
+		stringBuilder.append("JMPIFFALSE" + WHITESPACE + "LABEL" + NEWLINE);
+		stringBuilder.append("START" + NEWLINE);
 		stringBuilder.append(SCOPESTART + NEWLINE);
 	}
 	
@@ -234,7 +242,7 @@ public class GKVWalker extends GKVBaseListener {
 			stringBuilder.append(ctx.DECIMAL_LITERAL().getText() + NEWLINE);
 		} else if (ctx.IDENTIFIER() != null) {
 			stringBuilder.append(PUSH + WHITESPACE);
-			stringBuilder.append(ctx.IDENTIFIER().getText() + NEWLINE);
+			stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
 		}
 	}
 
