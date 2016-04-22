@@ -266,7 +266,8 @@ public class GKVWalker extends GKVBaseListener {
 	public void enterFunctionCall(GKVParser.FunctionCallContext ctx) {}
 
 	@Override 
-	public void exitFunctionCall(GKVParser.FunctionCallContext ctx) { }
+	public void exitFunctionCall(GKVParser.FunctionCallContext ctx) {
+	}
 
 	@Override 
 	public void enterIdList(GKVParser.IdListContext ctx) { 
@@ -327,8 +328,18 @@ public class GKVWalker extends GKVBaseListener {
 	public void enterDisplay(GKVParser.DisplayContext ctx) { }
 	
 	@Override
-	public void exitDisplay(GKVParser.DisplayContext ctx) { }
-	
+	public void exitDisplay(GKVParser.DisplayContext ctx) { 
+		if (ctx.IDENTIFIER() != null) {
+			stringBuilder.append("PRINT " + ctx.IDENTIFIER().getText() + NEWLINE);
+		} else if (ctx.INTEGER_LITERAL() != null) {
+			stringBuilder.append("PRINT " + ctx.INTEGER_LITERAL().getText() + NEWLINE);
+		} else if (ctx.DECIMAL_LITERAL() != null) {
+			stringBuilder.append("PRINT " + ctx.DECIMAL_LITERAL().getText() + NEWLINE);
+		} else if (ctx.STRING_LITERAL() != null) {
+			stringBuilder.append("PRINT " + ctx.STRING_LITERAL().getText() + NEWLINE);
+		}
+	}
+
 	@Override 
 	public void enterEveryRule(ParserRuleContext ctx) { }
 	
