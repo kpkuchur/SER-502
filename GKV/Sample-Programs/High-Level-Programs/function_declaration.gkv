@@ -1,5 +1,0 @@
-function foo uses integer a, integer c returns integer {
-	integer q;
-	integer w;	
-	return someId;
-}
