@@ -1,0 +1,5 @@
+function add uses integer a, integer b returns integer {
+	integer c;
+	c = a + b;	
+	return c;
+}

@@ -215,10 +215,10 @@ COMMA
 COMPK_KEYWORDS
 	: 
 	(	'equalTo' 
-	| 	'lessThan' 
+	| 	'lessThan'
 	| 	'greaterThan' 
 	|	'lessThanOrEqualTo' 
-	| 	'greateThanOrEqualTo' 
+	| 	'greaterThanOrEqualTo' 
 	|	'notEqualTo'
 	)
 	;

@@ -1,0 +1,10 @@
+integer a;
+integer b;
+integer c;
+a = 10;
+b = 20;
+if (a greaterThan b) then {
+	show "A is greater than B";
+} else {
+	show "B is greater than A";
+}

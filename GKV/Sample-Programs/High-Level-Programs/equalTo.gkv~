@@ -1,0 +1,10 @@
+integer a;
+integer b;
+integer c;
+a = 10;
+b = 20;
+if (a equalTo b) {
+	show "A is equal to B";
+} else {
+	show "B is not equal to A";
+}

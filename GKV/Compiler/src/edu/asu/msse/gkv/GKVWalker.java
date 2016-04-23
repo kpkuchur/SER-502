@@ -290,9 +290,7 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitIdList(GKVParser.IdListContext ctx) { }
 
 	@Override 
-	public void enterParameters(GKVParser.ParametersContext ctx) { 
-
-	}
+	public void enterParameters(GKVParser.ParametersContext ctx) { }
 
 	@Override 
 	public void exitParameters(GKVParser.ParametersContext ctx) { }
@@ -314,15 +312,13 @@ public class GKVWalker extends GKVBaseListener {
 	}
 
 	@Override 
-	public void enterReturnStatement(GKVParser.ReturnStatementContext ctx) { 
-		stringBuilder.append(RET + WHITESPACE);
-		// gkvnote: this is not the neat way of doing
-		// this will be more clear when you evaluate expressions
-		stringBuilder.append(ctx.expression().getText().toUpperCase() + NEWLINE);
-	}
+	public void enterReturnStatement(GKVParser.ReturnStatementContext ctx) { }
 	
 	@Override
-	public void exitReturnStatement(GKVParser.ReturnStatementContext ctx) { }
+	public void exitReturnStatement(GKVParser.ReturnStatementContext ctx) { 
+		stringBuilder.append(RET + WHITESPACE);
+		stringBuilder.append(ctx.expression().getText().toUpperCase() + NEWLINE);
+	}
 	
 	@Override
 	public void enterDisplay(GKVParser.DisplayContext ctx) { }
