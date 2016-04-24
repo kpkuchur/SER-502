@@ -14,7 +14,7 @@ options {
 
 program 
 	: 
-    ( 	sequenceOfStatements 
+    ( 	sequenceOfStatements
     | 	function
     )+ 
     ;
