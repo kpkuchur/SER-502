@@ -1,7 +1,7 @@
 package edu.asu.msse.gkv;
 
 /**
- * Copyright 2016 Gowtham Ganesh Nayak,
+ * Copyright 2016 GKV
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,11 @@ package edu.asu.msse.gkv;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Purpose: 
- *
- * SER502 Principle of Programming Paradigms
- * see http://gowthamnayak.in/compilers
- *
  * @author Gowtham Ganesh Nayak mailto:gnayak2@asu.edu
  * @version April 2016
  */
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -42,19 +36,13 @@ public class GKVWalker extends GKVBaseListener {
 	 * StringBuilder holds the intermediate language representation of 
 	 * the High Level Language defined in the program.
 	 */
-	public StringBuilder stringBuilder;
-	public final String WHITESPACE = " ";
-	public final String SCOPESTART = "SCOPESTART";
+	private StringBuilder stringBuilder;
+	private final String WHITESPACE = " ";
 	private final String NEWLINE = "\n";
-	private final String FUNCEND = "FUNCEND";
+	private final String SCOPESTART = "SCOPESTART";
 	private final String SCOPEEND = "SCOPEEND";
-	private final String RET = "RET";
 	private final String SET = "SET";
 	private final String PUSH = "PUSH";
-	private final String MULT = "MULT";
-	private final String DIV = "DIV";
-	private final String ADD = "ADD";
-	private final String SUB = "SUB";
 	
 	private TypeDictionary typeDictionary;
 	private Map<String, String> typeMap;
@@ -208,9 +196,9 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitSimpleExpression(GKVParser.SimpleExpressionContext ctx) {
 		if (ctx.ADDING_OPERATOR(0) != null) {
 			if (ctx.ADDING_OPERATOR(0).getText().equals("+")) {
-				stringBuilder.append(ADD + NEWLINE);
+				stringBuilder.append("ADD" + NEWLINE);
 			} else if (ctx.ADDING_OPERATOR(0).getText().equals("-")) {
-				stringBuilder.append(SUB + NEWLINE);
+				stringBuilder.append("SUB" + NEWLINE);
 			}
 		}
 	}
@@ -222,9 +210,9 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitTerm(GKVParser.TermContext ctx) {
 		if (ctx.MULTIPLYING_OPERATOR(0) != null) {
 			if (ctx.MULTIPLYING_OPERATOR(0).getText().equals("*")) {
-				stringBuilder.append(MULT + NEWLINE);
+				stringBuilder.append("MULT" + NEWLINE);
 			} else if (ctx.MULTIPLYING_OPERATOR(0).getText().equals("/")) {
-				stringBuilder.append(DIV + NEWLINE);
+				stringBuilder.append("DIV" + NEWLINE);
 			}
 		}
 	}
@@ -243,6 +231,9 @@ public class GKVWalker extends GKVBaseListener {
 		} else if (ctx.IDENTIFIER() != null) {
 			stringBuilder.append(PUSH + WHITESPACE);
 			stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
+		}else if (ctx.BOOLEAN() != null) {
+			stringBuilder.append(PUSH + WHITESPACE);
+			stringBuilder.append(ctx.BOOLEAN().getText().toUpperCase() + NEWLINE);
 		}
 	}
 
@@ -267,6 +258,7 @@ public class GKVWalker extends GKVBaseListener {
 
 	@Override 
 	public void exitFunctionCall(GKVParser.FunctionCallContext ctx) {
+		stringBuilder.append("CALL " + ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
 	}
 
 	@Override 
@@ -293,7 +285,12 @@ public class GKVWalker extends GKVBaseListener {
 	public void enterParameters(GKVParser.ParametersContext ctx) { }
 
 	@Override 
-	public void exitParameters(GKVParser.ParametersContext ctx) { }
+	public void exitParameters(GKVParser.ParametersContext ctx) { 
+		int noOfArguments = ctx.expression().size();
+		for (int i = 0; i < noOfArguments; i++) {
+			stringBuilder.append("POP" + NEWLINE);
+		}
+	}
 
 	@Override 
 	public void enterFunction(GKVParser.FunctionContext ctx) { 
@@ -308,7 +305,7 @@ public class GKVWalker extends GKVBaseListener {
 	@Override 
 	public void exitFunction(GKVParser.FunctionContext ctx) { 
 		stringBuilder.append(SCOPEEND + NEWLINE);
-		stringBuilder.append(FUNCEND + NEWLINE);
+		stringBuilder.append("FUNCEND" + NEWLINE);
 	}
 
 	@Override 
@@ -316,7 +313,7 @@ public class GKVWalker extends GKVBaseListener {
 	
 	@Override
 	public void exitReturnStatement(GKVParser.ReturnStatementContext ctx) { 
-		stringBuilder.append(RET + WHITESPACE);
+		stringBuilder.append("RET" + WHITESPACE);
 		stringBuilder.append(ctx.expression().getText().toUpperCase() + NEWLINE);
 	}
 	

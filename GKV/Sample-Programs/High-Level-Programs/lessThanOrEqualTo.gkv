@@ -6,5 +6,5 @@ b = 20;
 if (a lessThanOrEqualTo b) then {
 	show "A is less than of equal to B";
 } else {
-	show "B is greater than A";
+	show "B is less than A";
 }

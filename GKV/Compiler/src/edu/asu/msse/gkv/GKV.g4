@@ -98,6 +98,7 @@ factor
 	(	INTEGER_LITERAL 
 	|	DECIMAL_LITERAL 
 	| 	IDENTIFIER 
+	|   BOOLEAN
 	| 	'(' expression ')'
 	)
 	;

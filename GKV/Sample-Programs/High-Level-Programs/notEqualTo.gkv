@@ -6,5 +6,5 @@ b = 20;
 if (a notEqualTo b) then {
 	show "A is not equal to B";
 } else {
-	show "A is equal o B";
+	show "A is equal to B";
 }
