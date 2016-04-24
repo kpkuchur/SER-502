@@ -15,7 +15,7 @@ public class ComparisionDictionary {
 		this.comparisionOperatorMap.put("equalTo", "EQL");
 		this.comparisionOperatorMap.put("notEqualTo", "NTEQL");
 		this.comparisionOperatorMap.put("lessThanOrEqualTo", "LTEQL");
-		this.comparisionOperatorMap.put("greateThanOrEqualTo", "GTEQL");
+		this.comparisionOperatorMap.put("greaterThanOrEqualTo", "GTEQL");
 		this.comparisionOperatorMap.put("lessThan", "LT");
 		this.comparisionOperatorMap.put("greaterThan", "GT");
 	}

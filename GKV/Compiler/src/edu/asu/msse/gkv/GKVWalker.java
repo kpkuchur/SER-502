@@ -243,6 +243,9 @@ public class GKVWalker extends GKVBaseListener {
 		} else if (ctx.IDENTIFIER() != null) {
 			stringBuilder.append(PUSH + WHITESPACE);
 			stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
+		}else if (ctx.BOOLEAN() != null) {
+			stringBuilder.append(PUSH + WHITESPACE);
+			stringBuilder.append(ctx.BOOLEAN().getText().toUpperCase() + NEWLINE);
 		}
 	}
 

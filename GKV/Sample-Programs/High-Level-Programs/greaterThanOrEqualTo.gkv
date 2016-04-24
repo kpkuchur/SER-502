@@ -4,7 +4,7 @@ integer c;
 a = 10;
 b = 20;
 if (a greaterThanOrEqualTo b) then {
-	show "A is greater than to equal to B";
+	show "A is greater than or equal to B";
 } else {
-	show "B is less than A";
+	show "B is greater than A";
 }

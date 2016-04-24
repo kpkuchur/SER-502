@@ -1,0 +1,2 @@
+a = ((3 * 2) + (5 / 6)) - 8;
+b = (true and true) or (false and false);
