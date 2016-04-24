@@ -10,7 +10,7 @@ public class ComparisionDictionary {
 		this.comparisionOperatorMap = new HashMap<>();
 		initializeMap();
 	}
-	
+
 	private void initializeMap() {
 		this.comparisionOperatorMap.put("equalTo", "EQL");
 		this.comparisionOperatorMap.put("notEqualTo", "NTEQL");

@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Gowtham Ganesh Nayak,
+ * Copyright 2016 GKV
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Purpose: 
- *
- * SER502 Principle of Programming Pradaigms
- * see http://gowthanayak.in/compilers
+ * SER502 Principle of Programming Paradigms
  *
  * @author Gowtham Ganesh Nayak mailto:gnayak2@asu.edu
  * @version April 2016
@@ -24,10 +21,6 @@
 
 package edu.asu.msse.gkv;
 
-/**
- * @author gowtham
- *
- */
 public class Constants {
 	public static final String INTERMEDIATE_LANGUAGE_FILE_NAME = "myprogram.igkv";
 	public static final String ENCODING ="UTF-8";
