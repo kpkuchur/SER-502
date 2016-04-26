@@ -43,7 +43,7 @@ public class GKVWalker extends GKVBaseListener {
 	private final String SCOPEEND = "SCOPEEND";
 	private final String SET = "SET";
 	private final String PUSH = "PUSH";
-	private String numberofparam = "";
+	private int parameterCount = 0;
 	
 	private TypeDictionary typeDictionary;
 	private Map<String, String> typeMap;
@@ -113,9 +113,6 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitAssignmentStatement(GKVParser.AssignmentStatementContext ctx) {
 		stringBuilder.append(SET + WHITESPACE);
 		stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
-		if(ctx.functionCall() != null) {
-			stringBuilder.append("PRINT " + ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
-		}
 	}
 
 	@Override 
@@ -258,11 +255,13 @@ public class GKVWalker extends GKVBaseListener {
 	public void exitDeclarationStatement(GKVParser.DeclarationStatementContext ctx) { }
 	
 	@Override
-	public void enterFunctionCall(GKVParser.FunctionCallContext ctx) {}
+	public void enterFunctionCall(GKVParser.FunctionCallContext ctx) {
+		parameterCount = 0;
+	}
 
 	@Override 
 	public void exitFunctionCall(GKVParser.FunctionCallContext ctx) {
-		stringBuilder.append("CALL " + ctx.IDENTIFIER().getText().toUpperCase() + WHITESPACE + numberofparam + NEWLINE);
+		stringBuilder.append("CALL " + ctx.IDENTIFIER().getText().toUpperCase() + WHITESPACE + parameterCount + NEWLINE);
 	}
 
 	@Override 
@@ -290,11 +289,7 @@ public class GKVWalker extends GKVBaseListener {
 
 	@Override 
 	public void exitParameters(GKVParser.ParametersContext ctx) { 
-		int noOfArguments = ctx.expression().size();
-		for (int i = 0; i < noOfArguments; i++) {
-			stringBuilder.append("POP" + NEWLINE);
-		}
-		numberofparam = Integer.toString(noOfArguments);
+		parameterCount = ctx.expression().size();
 	}
 
 	@Override 
