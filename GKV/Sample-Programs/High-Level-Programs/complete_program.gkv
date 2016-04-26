@@ -1,0 +1,24 @@
+integer x;
+integer y;
+integer z;
+
+x = 6;
+y = 3;
+
+function add uses integer a, integer b returns integer {
+	integer c ;
+	c = a+b;
+	return c;
+}
+
+function add uses integer a, integer b returns integer {
+	integer c ;
+	c = b - a;
+	return c;
+}
+
+z = call add with x, y;
+show z;
+z = call sub with x, y;
+show z;
+

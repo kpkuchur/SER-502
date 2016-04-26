@@ -43,7 +43,7 @@ compoundStatement
 	;
 
 assignmentStatement
-	: IDENTIFIER ASSIGNMENT_SYMBOL expression
+	: IDENTIFIER ASSIGNMENT_SYMBOL (expression | functionCall)
 	;
 
 ifelseStatement: ifStatement (elseStatement)?;
