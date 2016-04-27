@@ -339,7 +339,7 @@ public class GKVWalker extends GKVBaseListener {
 	@Override
 	public void exitDisplay(GKVParser.DisplayContext ctx) { 
 		if (ctx.IDENTIFIER() != null) {
-			stringBuilder.append("PRINT " + ctx.IDENTIFIER().getText() + NEWLINE);
+			stringBuilder.append("PRINT " + ctx.IDENTIFIER().getText().toUpperCase() + NEWLINE);
 		} else if (ctx.INTEGER_LITERAL() != null) {
 			stringBuilder.append("PRINT " + ctx.INTEGER_LITERAL().getText() + NEWLINE);
 		} else if (ctx.DECIMAL_LITERAL() != null) {

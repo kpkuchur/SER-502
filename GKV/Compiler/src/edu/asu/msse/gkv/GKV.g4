@@ -60,7 +60,7 @@ ifelseStatement: ifStatement (elseStatement)?;
 
 ifStatement
 	:	CK_IF condition CK_THEN O_BRACE
-			sequenceOfStatements 
+			sequenceOfStatements
 		C_BRACE 
 	; 
 
