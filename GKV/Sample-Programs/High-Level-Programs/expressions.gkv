@@ -1,2 +1,7 @@
-a = ((3 * 2) + (5 / 6)) - 8;
-b = (true and true) or (false and false);
+integer a;
+a = 20;
+integer b;
+b = 30;
+integer c;
+c = ((b*2) + 6) - (a / 10); 
+show c;

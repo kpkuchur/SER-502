@@ -1,0 +1,12 @@
+integer i;
+integer c;
+i = 1;
+c = 0;
+
+while (i lessThanOrEqualTo 10) {
+	c = i * 2;
+	show c;
+	i = i + 1;
+}
+
+show "done";

@@ -1,0 +1,9 @@
+stack a;
+a.push(3);
+a.push(4);
+
+integer b;
+b = a.pop();
+show b;
+b = a.pop();
+show b;
