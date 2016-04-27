@@ -53,7 +53,7 @@ compoundStatement
 	;
 
 assignmentStatement
-	: IDENTIFIER ASSIGNMENT_SYMBOL (expression | functionCall)
+	: IDENTIFIER ASSIGNMENT_SYMBOL (expression | functionCall | stackPop)
 	;
 
 ifelseStatement: ifStatement (elseStatement)?;
