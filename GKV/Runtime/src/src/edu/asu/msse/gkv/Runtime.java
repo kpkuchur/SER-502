@@ -27,10 +27,201 @@ public class Runtime {
 		}
 		return res;
 	}
+	static int loopVariable = 0;
+	public static void loopRT(int loopVarInit, String fileName){
+//		System.out.println("loop variant :"+loopVarInit);
+    	Stack<Integer> loopstack = new Stack<Integer>();
+    	LinkedList<Map<String, String>> looplist = new LinkedList<Map<String, String>>();
+    	Map<String, Integer> loopmap = new HashMap<String, Integer>();
+		try{
+		FileReader fileReader = 
+                new FileReader(fileName);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = 
+                new BufferedReader(fileReader);
+            String line = "";
+            while((line = bufferedReader.readLine()) != null) {
+//            	System.out.println(line);
+            	if(line.startsWith("DECLINT")){
+                	loopmap.put(line.split(" ")[1], 0);
+                }else if(line.startsWith("PUSH")){
+                	boolean result = checkNum(line.split(" ")[1]);
+                	boolean testResult = checkBool(line.split(" ")[1]);
+//                	System.out.println("Parameter : "+line.split(" ")[1]+" is Integer? "+result);
+                	if(result == false && testResult == false){
+                		loopstack.push(loopmap.get(line.split(" ")[1]));
+                	}else if(result == false && testResult == true){
+                		if(line.split(" ")[1].equalsIgnoreCase("true")){
+                			loopstack.push(1);
+                		}else{
+                			loopstack.push(0);
+                		}
+                	}
+                	else{
+                		loopstack.push(Integer.parseInt(line.split(" ")[1]));
+                	}
+                }else if(line.startsWith("SET")){
+                	loopmap.put(line.split(" ")[1], loopstack.pop()); 
+//                	System.out.println("Key : "+ line.split(" ")[1]+" Value : "+loopmap.get(line.split(" ")[1]));
+                }else if(line.startsWith("LOOPHEAD")){
+            		loopstack.push(loopVarInit);
+            		loopmap.put(line.split(" ")[3], loopVarInit);
+//            		System.out.println("loophead");
+//            		System.out.println("Key : "+ line.split(" ")[3]+" Value : "+loopmap.get(line.split(" ")[3]));
+            	}else if(line.equals("LT")){
+                	int secondValue = loopstack.pop();
+                	int firstValue = loopstack.pop();
+                	int result = 0;
+                	if(firstValue < secondValue){
+                		result = 1;
+                	}
+//                	System.out.println("result : "+result);
+                	loopstack.push(result);
+                }
+            	else if(line.equals("LTEQL")){
+                	int secondValue = loopstack.pop();
+                	int firstValue = loopstack.pop();
+                	int result = 0;
+                	if(firstValue <= secondValue){
+                		result = 1;
+                	}
+//                	System.out.println("result : "+result);
+                	loopstack.push(result);
+                }
+            	else if(line.startsWith("JMPIFFALSE")){
+//            		System.out.println("778877887");
+		        	int r1 = loopstack.pop();
+//		        	System.out.println("r1 is : "+r1);
+		        	if(r1 == 0){
+		        	String label = line.split(" ")[1];
+		        	FileReader ifFileReader = 
+		                    new FileReader(fileName);
+		        	BufferedReader bufferedReaderforif = 
+		                    new BufferedReader(ifFileReader);
+		        	String ifCallingLine = null; 
+		        	while((ifCallingLine = bufferedReaderforif.readLine()) != null){
+		//        		System.out.println("Calling function "+functionCallingLine);
+		        		if(ifCallingLine.startsWith("LABEL")){
+		        			
+		        					String s = ifCallingLine.replace("LABEL : PRINT ", "");
+		        					String s1 = s.replace("\"", "");
+		        					if(loopmap.get(s1) == null){
+			                    		System.out.println(s1);
+			                    	}else{
+			                    		if(loopmap.get("Logic") == null){
+//			                    			System.out.println("****************");
+			                    			System.out.println(loopmap.get(s1));
+			                    		}else if(loopmap.get("Logic") == 1){
+			                    			if(loopmap.get(s1) == 0){
+			                    				System.out.println("False");
+			                    			}else if(loopmap.get(s1) == 1){
+			                    				System.out.println("True");
+			                    			}
+			                    		}
+			                    	}
+		        			
+		        				
+		        			
+		        		}
+		
+		        	}           
+		        	}else{
+		//        		FileReader ifFileReader = 
+		//                        new FileReader(fileName);
+		//            	BufferedReader bufferedReaderforif = 
+		//                        new BufferedReader(ifFileReader);
+		//            	String ifCallingLine = null; 
+		            	while((line = bufferedReader.readLine()) != null){
+		//            		System.out.println(line);
+		            		if(line.startsWith("PRINT")){
+//		                    	System.out.println("vgajasjbjh");
+		                    	String s = line.replace("PRINT ", "");
+		    					String s1 = s.replace("\"", "");
+//		    					System.out.println(s1);
+		                    	if(loopmap.get(s1) == null){
+		                    		System.out.println(s1);
+		                    	}else{
+		                    		if(loopmap.get("Logic") == null){
+//		                    			System.out.println("****************");
+		                    			System.out.println(loopmap.get(s1));
+		                    		}else if(loopmap.get("Logic") == 1){
+		                    			if(loopmap.get(s1) == 0){
+		                    				System.out.println("False");
+		                    			}else if(loopmap.get(s1) == 1){
+		                    				System.out.println("True");
+		                    			}
+		                    		}
+		                    	}
+		                    	
+		                    }
+		            		else if(line.startsWith("PUSH")){
+		            			boolean result = checkNum(line.split(" ")[1]);
+		                    	boolean testResult = checkBool(line.split(" ")[1]);
+//		                    	System.out.println("Parameter : "+line.split(" ")[1]+" is Integer? "+result);
+		                    	if(result == false && testResult == false){
+		                    		loopstack.push(loopmap.get(line.split(" ")[1]));
+//		                    		System.out.println("********************Parameter : "+line.split(" ")[1]+" VALUE "+loopmap.get(line.split(" ")[1]));
+		                    	}else if(result == false && testResult == true){
+		                    		if(line.split(" ")[1].equalsIgnoreCase("true")){
+		                    			loopstack.push(1);
+		                    		}else{
+		                    			loopstack.push(0);
+		                    		}
+		                    	}
+		                    	else{
+		                    		loopstack.push(Integer.parseInt(line.split(" ")[1]));
+		                    	}
+		            		}
+		            		else if(line.startsWith("ADD")){
+		            			int firstValue = loopstack.pop();
+		                    	int secondValue = loopstack.pop();
+		                    	int res = firstValue + secondValue;
+		                    	loopstack.push(res);
+		    				}
+		            		else if(line.startsWith("SUB")){
+		            			int firstValue = loopstack.pop();
+		                    	int secondValue = loopstack.pop();
+		                    	int res = firstValue - secondValue;
+		                    	loopstack.push(res);
+		    				}
+		            		else if(line.startsWith("MULT")){
+		            			int firstValue = loopstack.pop();
+		                    	int secondValue = loopstack.pop();
+//		                    	System.out.println("firstValue : "+firstValue);
+//		                    	System.out.println("secondValue : "+secondValue);
+		                    	int res = firstValue * secondValue;
+//		                    	System.out.println("res of mul "+res);
+		                    	loopstack.push(res);
+		    				}
+		            		else if(line.startsWith("DIV")){
+		            			int firstValue = loopstack.pop();
+		                    	int secondValue = loopstack.pop();
+		                    	int res = firstValue / secondValue;
+		                    	loopstack.push(res);
+		    				}
+		            		else if(line.startsWith("SET")){
+		                    	loopmap.put(line.split(" ")[1], loopstack.pop()); 
+//		                    	System.out.println(" @@@@@@@@@ Key : "+ line.split(" ")[1]+" Value : "+loopmap.get(line.split(" ")[1]));
+		                    }
+		            		else if(line.startsWith("JMP")){
+		            			loopVarInit++;
+		            			loopRT(loopVarInit, fileName);
+		            		}
+		            	}
+        	}
+        	
+        }
+            }
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
     public static void main(String [] args) {
     	Stack<Integer> stack = new Stack<Integer>();
     	LinkedList<Map<String, String>> list = new LinkedList<Map<String, String>>();
     	Map<String, Integer> map = new HashMap<String, Integer>();
+    	Map<String, Stack<Integer>> stackmap = new HashMap<String, Stack<Integer>>();
     	int res =0;
         // The name of the file to open.
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/HelloWorld.igkv";
@@ -38,14 +229,20 @@ public class Runtime {
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/division.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/multiplication.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/substraction.igkv";
-    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/function.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/function.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/equalTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/greaterThan.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/greaterThanOrEqualTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/lessThan.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/lessThanOrEqualTo.igkv";
-//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/notEqualTo.igkv";
+    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/notEqualTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/expressions.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/MainProgram.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/while.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/complete_Program.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/stack.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/MULTIPLICATIONTABLE.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/factorialbyLoop.igkv";
         // This will reference one line at a time
         String line = null;
 
@@ -189,7 +386,26 @@ public class Runtime {
 //                	stack.push(res);
                 }else if(line.startsWith("DECLINT")){
                 	map.put(line.split(" ")[1], 0);
-                }else if(line.startsWith("PUSH")){
+                }else if(line.startsWith("DECLSTACK")){
+//                	System.out.println("hjjjs");
+                	stackmap.put(line.split(" ")[1], new Stack<Integer>());
+                }
+                else if(line.contains(".PUSH")){
+//                	System.out.println("jhdbsb");
+//                	System.out.println(line.split("\\.")[0]);
+//                	System.out.println(line.split(" ")[1]);
+                	Stack<Integer> s = stackmap.get(line.split("\\.")[0]);
+                	s.push(Integer.parseInt(line.split(" ")[1]));
+                	stackmap.put(line.split(" ")[1], s);
+                }
+                else if(line.contains(".POP")){
+//                	System.out.println("jhgdb");
+//                	System.out.println(line.split("\\.")[0]);
+                	Stack<Integer> s = stackmap.get(line.split("\\.")[0]);
+                	int res1 = s.pop();
+                	stack.push(res1);
+                }
+                else if(line.startsWith("PUSH")){
                 	boolean result = checkNum(line.split(" ")[1]);
                 	boolean testResult = checkBool(line.split(" ")[1]);
 //                	System.out.println("Parameter : "+line.split(" ")[1]+" is Integer? "+result);
@@ -208,7 +424,14 @@ public class Runtime {
                 }else if(line.startsWith("SET")){
                 	map.put(line.split(" ")[1], stack.pop()); 
 //                	System.out.println("Key : "+ line.split(" ")[1]+" Value : "+map.get(line.split(" ")[1]));
-                }else if(line.startsWith("LOGAND")){
+                }else if(line.startsWith("LOOPHEAD")){
+//                	map.put(line.split(" ")[3], stack.pop());
+                	loopVariable = map.get(line.split(" ")[3]);
+                	loopRT(loopVariable,fileName);
+                	break;
+//                	System.out.println("Key : "+ line.split(" ")[1]+" Value : "+map.get(line.split(" ")[1]));
+                }
+                else if(line.startsWith("LOGAND")){
                 	int firstValue = stack.pop();
                 	int secondValue = stack.pop();
                 	if(firstValue == 0  && secondValue == 0){
@@ -354,20 +577,29 @@ public class Runtime {
                 	String ifCallingLine = null; 
                 	while((ifCallingLine = bufferedReaderforif.readLine()) != null){
 //                		System.out.println("Calling function "+functionCallingLine);
+//                		System.out.println("sdsdsv "+ifCallingLine);
                 		if(ifCallingLine.startsWith("LABEL")){
+//                			System.out.println("678788");
                 			while((ifCallingLine = bufferedReaderforif.readLine()) != null){
-//                				System.out.println(ifCallingLine);
+//                				System.out.println("sdsdsv "+ifCallingLine);
                 				if(ifCallingLine.startsWith("PRINT")){
                 					String s = ifCallingLine.replace("PRINT ", "");
                 					String s1 = s.replace("\"", "");
                 					System.out.println(s1);
+                					
                 				}
+                				else if(ifCallingLine.startsWith("ELSEEND")){
+//                        			break;
+                        			System.exit(0);
+                        			
+                        		}
                 				
                 			}
                 		}
-
+                			
                 	}           
                 	}else{
+//                		System.out.println("*************8");
 //                		FileReader ifFileReader = 
 //                                new FileReader(fileName);
 //                    	BufferedReader bufferedReaderforif = 
@@ -380,8 +612,35 @@ public class Runtime {
             					String s1 = s.replace("\"", "");
             					System.out.println(s1);
             				}
-                    		if(line.startsWith("END")){
-                    			break;
+                    		else if(line.startsWith("PUSH")){
+                    			boolean result = checkNum(line.split(" ")[1]);
+                            	boolean testResult = checkBool(line.split(" ")[1]);
+//                            	System.out.println("Parameter : "+line.split(" ")[1]+" is Integer? "+result);
+                            	if(result == false && testResult == false){
+                            		stack.push(map.get(line.split(" ")[1]));
+                            	}else if(result == false && testResult == true){
+                            		if(line.split(" ")[1].equalsIgnoreCase("true")){
+                            			stack.push(1);
+                            		}else{
+                            			stack.push(0);
+                            		}
+                            	}
+                            	else{
+                            		stack.push(Integer.parseInt(line.split(" ")[1]));
+                            	}
+                    		}
+                    		else if(line.startsWith("ADD")){
+                    			int firstValue = stack.pop();
+                            	int secondValue = stack.pop();
+                            	res = firstValue + secondValue;
+                            	stack.push(res);
+            				}
+                    		else if(line.startsWith("SET")){
+                            	map.put(line.split(" ")[1], stack.pop()); 
+//                            	System.out.println("Key : "+ line.split(" ")[1]+" Value : "+map.get(line.split(" ")[1]));
+                            }
+                    		else if(line.startsWith("END")){
+                    			System.exit(0);
                     		}
                     	}
                 	}
@@ -394,6 +653,8 @@ public class Runtime {
 //                	}
 //                	stack.push(result);
                 }
+
+
                 else{
                 	
                 }
