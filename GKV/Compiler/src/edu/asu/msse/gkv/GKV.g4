@@ -32,7 +32,17 @@ simpleStatement
 	| 	declarationStatement 
 	| 	functionCall 
 	| 	display
+	|   stackPush
+	|   stackPop
 	)? 	';'
+	;
+
+stackPush
+	: IDENTIFIER'.''push' O_BRACKET INTEGER_LITERAL C_BRACKET	
+	;
+	
+stackPop
+	: IDENTIFIER'.''pop' O_BRACKET C_BRACKET
 	;
 
 compoundStatement
@@ -104,7 +114,8 @@ factor
 	;
 
 declarationStatement
-	:	DATATYPE IDENTIFIER (COMMA IDENTIFIER)* ;
+	:	DATATYPE IDENTIFIER (COMMA IDENTIFIER)* 
+	;
 
 functionCall
 	:	FK_CALL IDENTIFIER (FK_WITH parameters)?
@@ -154,7 +165,7 @@ BOOLEAN
 	;
 	
 DATATYPE
-	:	('integer' | 'decimal' | 'boolean')
+	:	('integer' | 'decimal' | 'boolean' | 'stack')
 	;
 
 FK_FUNCTION 
@@ -176,7 +187,14 @@ FK_RETURN
 O_BRACE
 	:	'{'
 	;
-	
+O_BRACKET
+  : '('
+  ;
+  
+C_BRACKET
+  : ')'
+  ;
+
 C_BRACE
 	:	'}'
 	;

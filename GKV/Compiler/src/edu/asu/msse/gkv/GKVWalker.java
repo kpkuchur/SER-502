@@ -76,7 +76,23 @@ public class GKVWalker extends GKVBaseListener {
 			System.out.println(this.getClass().getSimpleName() + " Exception writing to file : " + Constants.INTERMEDIATE_LANGUAGE_FILE_NAME);
 		}
 	}
+	
+	@Override 
+	public void enterStackPush(GKVParser.StackPushContext ctx) { 
+		stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase()+ ".PUSH" + WHITESPACE + ctx.INTEGER_LITERAL().getText() + NEWLINE);
+	}
 
+	@Override 
+	public void exitStackPush(GKVParser.StackPushContext ctx) { }
+	
+	@Override 
+	public void enterStackPop(GKVParser.StackPopContext ctx) { 
+		stringBuilder.append(ctx.IDENTIFIER().getText().toUpperCase()+ ".POP" + NEWLINE);
+	}
+
+	@Override 
+	public void exitStackPop(GKVParser.StackPopContext ctx) { }
+	
 	@Override 
 	public void enterSequenceOfStatements(GKVParser.SequenceOfStatementsContext ctx) { }
 	
