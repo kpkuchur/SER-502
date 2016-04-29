@@ -1,0 +1,12 @@
+function fact uses integer a returns integer {
+	if (a equalTo 1) then {
+		return 1;
+	} else {
+		integer temp;
+		temp = call fact with (a - 1);
+		temp = a * temp;		
+		return temp;
+	}				
+}
+
+call fact with 3;
