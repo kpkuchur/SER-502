@@ -25,8 +25,15 @@ import java.util.Map;
 public class TypeDictionary {
 	private final String INTEGER = "integer";
 	private final String DECLINT = "DECLINT";
+	
 	private final String DECIMAL = "decimal";
-	private final String DECDEC = "DECDEC";
+	private final String DECLDEC = "DECLDEC";
+	
+	private final String STACK = "stack";
+	private final String DECLSTACK = "DECLSTACK";
+	
+	private final String BOOLEAN = "boolean";
+	private final String DECLB = "DECLB";
 	
 	private Map<String, String> typeMap;
 	
@@ -37,7 +44,9 @@ public class TypeDictionary {
 	
 	private void initializeTypeMap() {
 		this.typeMap.put(INTEGER, DECLINT);
-		this.typeMap.put(DECIMAL, DECDEC);
+		this.typeMap.put(DECIMAL, DECLDEC);
+		this.typeMap.put(STACK, DECLSTACK);
+		this.typeMap.put(BOOLEAN, DECLB);
 	}
 	
 	public Map<String, String> getTypeMap() {
