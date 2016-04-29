@@ -22,6 +22,7 @@
 package edu.asu.msse.gkv;
 
 public class Constants {
-	public static final String INTERMEDIATE_LANGUAGE_FILE_NAME = "myprogram.igkv";
+	public static final String HIGH_LEVEL_LANGUAGE_FILE_PATH = "C:\\Users\\Gowtham\\Git\\SER-502\\GKV\\Sample-Programs\\High-Level-Programs\\";
+	public static final String INTERMEDIATE_LANGUAGE_FILE_PATH = "C:\\Users\\Gowtham\\Git\\SER-502\\GKV\\Sample-Programs\\Intermediate-Code\\";
 	public static final String ENCODING ="UTF-8";
 }

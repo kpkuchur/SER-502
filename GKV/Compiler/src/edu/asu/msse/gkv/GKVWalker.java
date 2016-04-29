@@ -49,11 +49,17 @@ public class GKVWalker extends GKVBaseListener {
 	private Map<String, String> typeMap;
 	private final ComparisionDictionary comparisionDicitionary;
 	private final Map<String, String> comparisionOperatorMap;
+	private String fileName = "";
+	private String HIGH_LEVEL_LANGUAGE_FILE = "";
+	private String INTERMEDIATE_LANGUAGE_FILE = "";
 	
 	/**
 	 * Constructor for the walker.
 	 */
-	public GKVWalker() {
+	public GKVWalker(String fileName) {
+		this.HIGH_LEVEL_LANGUAGE_FILE = Constants.HIGH_LEVEL_LANGUAGE_FILE_PATH + fileName;
+		this.fileName = fileName.split("\\.")[0];
+		this.INTERMEDIATE_LANGUAGE_FILE = Constants.INTERMEDIATE_LANGUAGE_FILE_PATH + this.fileName + ".igkv";
 		this.stringBuilder = new StringBuilder();
 		this.typeDictionary = new TypeDictionary();
 		this.typeMap = this.typeDictionary.getTypeMap();
@@ -69,11 +75,11 @@ public class GKVWalker extends GKVBaseListener {
 		String intermediateProgram = stringBuilder.toString();
 		System.out.print(" Inside Exit Program \n ");
 		try {
-			PrintWriter writer = new PrintWriter(Constants.INTERMEDIATE_LANGUAGE_FILE_NAME, Constants.ENCODING);
+			PrintWriter writer = new PrintWriter(this.INTERMEDIATE_LANGUAGE_FILE, Constants.ENCODING);
 			writer.write(intermediateProgram);
 			writer.close();
 		} catch (Exception e){
-			System.out.println(this.getClass().getSimpleName() + " Exception writing to file : " + Constants.INTERMEDIATE_LANGUAGE_FILE_NAME);
+			System.out.println(this.getClass().getSimpleName() + " Exception writing to file : " + this.INTERMEDIATE_LANGUAGE_FILE );
 		}
 	}
 	

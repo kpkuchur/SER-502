@@ -10,8 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class GKVCompiler {
 	public static void main(String[] args) throws IOException {
-		ANTLRFileStream antlrFileStream = new ANTLRFileStream("/home/gowtham/program.gkv");
-		//CharStream charStream = new ANTLRStringStream(antlrFileStream); 
+		ANTLRFileStream antlrFileStream = new ANTLRFileStream(Constants.HIGH_LEVEL_LANGUAGE_FILE_PATH + args[0]);
 		
 		GKVLexer gkvLexer = new GKVLexer(antlrFileStream);
 		TokenStream tokenStream = new CommonTokenStream(gkvLexer);
@@ -22,7 +21,7 @@ public class GKVCompiler {
 	    System.out.println(programParseTree.toStringTree(gkvParser));
 		 
 		 ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
-		 parseTreeWalker.walk(new GKVWalker(), programParseTree);
+		 parseTreeWalker.walk(new GKVWalker(args[0]), programParseTree);
 		 
 		System.out.println("done");
 	}

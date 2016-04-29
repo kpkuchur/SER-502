@@ -5,11 +5,11 @@ options {
 }
 
 @parser:: header {
-//  package edu.asu.msse.gkv;
+  package edu.asu.msse.gkv;
 }
 
 @lexer::header {
-//  package edu.asu.msse.gkv;
+  package edu.asu.msse.gkv;
 } 
 
 program 
