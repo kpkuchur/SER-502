@@ -11,12 +11,12 @@ GTEQL
 JMPIFFALSE LABEL
 START
 SCOPESTART
-PRINT "A is greater than to equal to B"
+PRINT "A is greater than or equal to B"
 SCOPEEND
 JMP ELSEEND
 END
 LABEL: ELSESTART
 SCOPESTART
-PRINT "A is less than B"
+PRINT "B is greater than A"
 SCOPEEND
 ELSEEND
