@@ -34,6 +34,7 @@ simpleStatement
 	| 	display
 	|   stackPush
 	|   stackPop
+	| 	returnStatement
 	)? 	';'
 	;
 
@@ -128,12 +129,11 @@ parameters
 function 
 	: 	FK_FUNCTION IDENTIFIER (FK_USES idList)? FK_RETURNS DATATYPE
         O_BRACE 
-        	(sequenceOfStatements)?
-          	returnStatement
+        	sequenceOfStatements
        	C_BRACE
     ;
 
-returnStatement: FK_RETURN expression ';';
+returnStatement: FK_RETURN expression;
 
 idList: DATATYPE IDENTIFIER (COMMA DATATYPE IDENTIFIER)*;
 
