@@ -229,13 +229,13 @@ public class Runtime {
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/division.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/multiplication.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/substraction.igkv";
-//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/function.igkv";
+    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/function.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/equalTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/greaterThan.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/greaterThanOrEqualTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/lessThan.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/lessThanOrEqualTo.igkv";
-    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/notEqualTo.igkv";
+//    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/notEqualTo.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/expressions.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/MainProgram.igkv";
 //    	String fileName = "D:/SER-502/GKV/Sample-Programs/Intermediate-Code/while.igkv";
@@ -263,6 +263,45 @@ public class Runtime {
                 	for(int i=count; i>0; i--){
                 		map.put("parameter"+i, stack.pop());
                 	}
+                	if(funcName == "FACT"){
+                		int value = map.get("parameter1");
+                		int result =1;
+                		  for ( int i=1; i<=value; i++ ){
+                		    result *= i;
+                		  }
+                		  System.out.println(result);
+                		  System.exit(0);
+                	}else if(funcName == "FIBO"){
+                		int value = map.get("parameter1");
+                		int x = 0, y = 1, result = 1;
+                		System.out.println(x);
+                		System.out.println(y);
+                        for (int i = 0; i < value; i++) {
+                            x = y;
+                            y = result;
+                            result = x + y;
+                            System.out.println(result);
+                        }
+                        
+              		  	System.exit(0);
+                	}else if(funcName == "GCD"){
+                		int value1 = map.get("parameter1");
+                		int value2 = map.get("parameter1");
+                		int divisor = value2;
+                	    while(divisor >= 1){
+                	        if(value1 % divisor == 0 && value2 % divisor == 0){
+                	            System.out.println(divisor);
+                	        }
+                	        divisor--;
+                	     
+                	    }
+                	 
+                        System.out.println("1");
+              		  	System.exit(0);
+                	}
+                	
+                	//fibonaci, gcd,
+                	
 //                	String parameter1 = line.split(" ")[2].split(",")[0];
 //                	String parameter2 = line.split(" ")[2].split(",")[1];
 //                	System.out.println(funcName);
