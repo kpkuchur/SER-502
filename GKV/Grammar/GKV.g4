@@ -5,16 +5,16 @@ options {
 }
 
 @parser:: header {
-  //package edu.asu.msse.gkv;
+//  package edu.asu.msse.gkv;
 }
 
 @lexer::header {
-  //package edu.asu.msse.gkv;
-}
+//  package edu.asu.msse.gkv;
+} 
 
 program 
 	: 
-    ( 	sequenceOfStatements 
+    ( 	sequenceOfStatements
     | 	function
     )+ 
     ;
@@ -32,43 +32,57 @@ simpleStatement
 	| 	declarationStatement 
 	| 	functionCall 
 	| 	display
+	|   stackPush
+	|   stackPop
+	| 	returnStatement
 	)? 	';'
+	;
+
+stackPush
+	: IDENTIFIER'.''push' O_BRACKET INTEGER_LITERAL C_BRACKET	
+	;
+	
+stackPop
+	: IDENTIFIER'.''pop' O_BRACKET C_BRACKET
 	;
 
 compoundStatement
 	: 
-	(	ifStatement 
+	(	ifelseStatement 
 	| 	loop
 	)
 	;
 
 assignmentStatement
-	: IDENTIFIER ASSIGNMENT_SYMBOL expression
+	: IDENTIFIER ASSIGNMENT_SYMBOL (expression | functionCall | stackPop)
 	;
+
+ifelseStatement: ifStatement (elseStatement)?;
 
 ifStatement
 	:	CK_IF condition CK_THEN O_BRACE
-			sequenceOfStatements 
+			sequenceOfStatements
 		C_BRACE 
-	(	CK_ELSE O_BRACE 
+	; 
+
+elseStatement
+	:	CK_ELSE O_BRACE 
 			sequenceOfStatements 
 		C_BRACE
-	)?
-	; 
+	;
 
 loop
 	:	'while' condition O_BRACE  
 			sequenceOfStatements 
 		C_BRACE;
-      
+
 condition
 	:	expression
 	;
 
 expression
 	:	relation
-	(	'and' relation 
-	| 	'or' relation
+	(	RELATIONOP relation 
 	)*
 	;
 
@@ -95,12 +109,14 @@ factor
 	(	INTEGER_LITERAL 
 	|	DECIMAL_LITERAL 
 	| 	IDENTIFIER 
+	|   BOOLEAN
 	| 	'(' expression ')'
 	)
 	;
 
 declarationStatement
-	:	(DATATYPE IDENTIFIER (COMMA IDENTIFIER)*| DATATYPE IDENTIFIER ASSIGNMENT_SYMBOL expression (COMMA IDENTIFIER ASSIGNMENT_SYMBOL expression)*) ;
+	:	DATATYPE IDENTIFIER (COMMA IDENTIFIER)* 
+	;
 
 functionCall
 	:	FK_CALL IDENTIFIER (FK_WITH parameters)?
@@ -113,12 +129,11 @@ parameters
 function 
 	: 	FK_FUNCTION IDENTIFIER (FK_USES idList)? FK_RETURNS DATATYPE
         O_BRACE 
-        	(sequenceOfStatements)?
-          	returnStatement
+        	sequenceOfStatements
        	C_BRACE
     ;
-    
-returnStatement: FK_RETURN expression ';';
+
+returnStatement: FK_RETURN expression;
 
 idList: DATATYPE IDENTIFIER (COMMA DATATYPE IDENTIFIER)*;
 
@@ -142,12 +157,15 @@ fragment NUMBER
 	:	('0'..'9')
 	;
 
+RELATIONOP
+	: ('and' | 'or');
+	 
 BOOLEAN
 	:	('true' | 'false')
 	;
 	
 DATATYPE
-	:	('integer' | 'decimal' | 'boolean')
+	:	('integer' | 'decimal' | 'boolean' | 'stack')
 	;
 
 FK_FUNCTION 
@@ -169,7 +187,14 @@ FK_RETURN
 O_BRACE
 	:	'{'
 	;
-	
+O_BRACKET
+  : '('
+  ;
+  
+C_BRACKET
+  : ')'
+  ;
+
 C_BRACE
 	:	'}'
 	;
@@ -209,16 +234,16 @@ COMMA
 COMPK_KEYWORDS
 	: 
 	(	'equalTo' 
-	| 	'lessThan' 
+	| 	'lessThan'
 	| 	'greaterThan' 
 	|	'lessThanOrEqualTo' 
-	| 	'greateThanOrEqualTo' 
+	| 	'greaterThanOrEqualTo' 
 	|	'notEqualTo'
 	)
 	;
 	
 IDENTIFIER
-	:	
+	:
 	(	'a'..'z'
 	| 	'A'..'Z'
 	)+
